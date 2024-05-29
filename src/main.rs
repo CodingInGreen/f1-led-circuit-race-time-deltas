@@ -14,14 +14,14 @@ fn main() {
 
 fn process_csv() -> Result<(), Box<dyn Error>> {
     // Open the file
-    let file_path = "race_data.csv";
+    let file_path = "combined-x-y-verstappen.csv";
     let file = File::open(file_path)?;
 
     // Create a CSV reader
     let mut rdr = ReaderBuilder::new().from_reader(file);
 
     // Create a CSV writer for the output file
-    let output_file = File::create("updated_race_data.csv")?;
+    let output_file = File::create("time_delta_verstappen.csv")?;
     let mut wtr = WriterBuilder::new().from_writer(output_file);
 
     // Get the headers
@@ -40,7 +40,7 @@ fn process_csv() -> Result<(), Box<dyn Error>> {
         let mut new_record = record.clone();
 
         // Parse the timestamp
-        let timestamp_str = record.get(headers.iter().position(|h| h == "timestamp").unwrap()).unwrap();
+        let timestamp_str = record.get(headers.iter().position(|h| h == "date").unwrap()).unwrap();
         let timestamp: DateTime<Utc> = timestamp_str.parse()?;
 
         // Calculate the time difference
